@@ -1,0 +1,227 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords"
+          content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
+    <meta name="description"
+          content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+    <meta name="robots" content="noindex,nofollow">
+    <title>@ViewBag.Title - Quản trị</title>
+    <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Aset/Admin/plugins/images/favicon.png">
+    <!-- Custom CSS -->
+    <link href="plugins/bower_components/chartist/dist/chartist.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Aset/Admin/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css">
+    <!-- Custom CSS -->
+    <link href="~/Aset/Admin/css/style.min.css" rel="stylesheet">
+
+    <style>
+        #chart_container {
+            width: 400px;
+            height: 400px;
+            border: 1px solid #ddd;
+            padding: 1px;
+            border-radius: 4px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+         data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar" data-navbarbg="skin5">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header" data-logobg="skin6">
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                        <!-- Logo icon -->
+                        <b class="logo-icon">
+                            <!-- Dark Logo icon -->
+                            <img src="~/Aset/Admin/image/Logo1.png" alt="homepage" width="160" height="50" />                           
+                        </b>                        
+                    </a>                   
+                    <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
+                       href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse offset-md-8" id="navbarSupportedContent" data-navbarbg="skin5">
+
+                    <!-- ============================================================== -->
+                    <!-- Right side toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav ms-auto d-flex align-items-center" style="height:50px">
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                        <li class="dropdown">
+                            <a class="profile-pic dropdown-toggle" data-bs-toggle="dropdown" href="#">
+                                <img src="~/Aset/Admin/plugins/images/users/4.jpg" alt="user-img" width="36" class="img-circle">
+                                <span class="text-white font-medium">
+
+                                    @{
+                                        var session = (TestUngDung.Areas.Admin.Models.LoginModel)Session[TestUngDung.Common.Constrants.USER_SESSION];
+                                    }
+                                    @if (session != null)
+                                    {
+                                        @session.UserName;
+                                    }
+                                </span>
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" aria-expanded="false">
+                                <li>
+                                    <a href="@Url.Action("Logout", "Home")"><i class="fas fa-key"></i> Thoát</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                    </ul>
+                </div>
+            </nav>
+        </header>        
+        <aside class="left-sidebar" data-sidebarbg="skin6">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <!-- User Profile-->
+                        <li class="sidebar-item pt-2">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="@Url.Action("Index", "Home")"
+                               aria-expanded="false">
+                                <i class=" fas fa-th-list" aria-hidden="true"></i>
+                                <span class="hide-menu">Quản lí sản phẩm</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="@Url.Action("Index", "User")"
+                               aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="hide-menu">Quản lí người dùng</span>
+                            </a>
+                        </li>                                                
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="@Url.Action("Index", "Hangsanxuat")"
+                               aria-expanded="false">
+                                <i class="fas fa-cube" aria-hidden="true"></i>
+                                <span class="hide-menu">Hãng sản xuất</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="@Url.Action("Index", "Hedieuhanh")"
+                               aria-expanded="false">
+                                <i class="fas fa-microchip" aria-hidden="true"></i>
+                                <span class="hide-menu">Hệ điều hành</span>
+                            </a>
+                        </li>                                            
+                    </ul>
+
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>        
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Trang Quản trị -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb bg-white">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <header class="panel-heading">
+                            <label style="color:blue"><b>@RenderSection("header", required: true)</b></label>
+                        </header>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nội dung Thông báo -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <div class="white-box">
+                    @if (TempData["AlertMessage"] != null)
+                    {
+                        <div id="AlertBox" class="alert @TempData["AlertType"] hide">
+                            @TempData["AlertMessage"]
+                        </div>
+                    }
+                    @RenderBody()
+                </div>
+            </div>
+
+            <!-- End Container fluid  -->
+
+            <footer class="footer text-center">
+                2021 © JK Admin đươc tạo bởi Nguyen Tan Binh
+            </footer>
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+
+    <script src="~/Aset/Admin/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="~/Aset/Admin/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Aset/Admin/js/app-style-switcher.js"></script>
+    <script src="~/Aset/Admin/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <!--Wave Effects -->
+    <script src="~/Aset/Admin/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="~/Aset/Admin/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="~/Aset/Admin/js/custom.js"></script>
+    <!--This page JavaScript -->
+    <!--chartis chart-->
+    <script src="~/Aset/Admin/plugins/bower_components/chartist/dist/chartist.min.js"></script>
+    <script src="~/Aset/Admin/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="~/Aset/Admin/js/pages/dashboards/dashboard1.js"></script>
+    <script>
+        $('#AlertBox').removeClass('hide');
+        $('#AlertBox').delay(3000).slideUp(700);
+    </script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/Chart.min.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</body>
+</html>

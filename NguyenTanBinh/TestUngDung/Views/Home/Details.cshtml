@@ -1,0 +1,72 @@
+﻿@model ModelEF.Model.SanPham
+
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section header{
+    <i class="fas fa-th-list">&nbsp; Chi tiết sản phẩm</i>
+}
+<div class="row">
+    <div class="col-md-4 col-sm-12">
+        <img src="@Url.Content("~/Image/" + Model.HinhAnh)" height="250" />
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        <h1 style="font-family: 'face', Arial, Helvetica, sans-serif; font-size: 30px; text-align: left; border-radius: 0px; color: #066c49; margin-top:15px">
+            @Html.DisplayFor(model => model.TenSP)
+        </h1>        
+        <div class="price-num">                           
+                <span style="font-family: 'heve', Arial, Helvetica, sans-serif;	color: #ef2b53;	vertical-align: middle;	font-weight: 400; font-size:18px">@(String.Format("{0:0,0 VND}", Model.GiaTien))</span>  
+                <p>@Html.DisplayFor(model => model.MoTa)</p>
+        </div>  
+        <div class="col-md-9">
+            <table>
+                <tr>
+                    <th>
+                        Cấu hình
+                    </th>
+                    <th>
+                        Thông số
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.BoNho)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.BoNho) GB
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.Ram)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Ram) GB
+                    </td>
+                </tr>                
+                <tr>
+                    <td>
+                        Hãng sản xuất
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.HangSX.HangSX1)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Hệ điều hành
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.HeDH.HeDieuHanh)
+                    </td>
+                </tr>
+            </table>
+
+            <input class="btn btn-outline-success" style="margin-bottom:5px" type="submit" value="Đặt mua" id="bgnGioHang" />
+        </div>        
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Quay lại", "Index", "Home", new { @class = "btn btn-secondary" })
+</p>

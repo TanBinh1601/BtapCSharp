@@ -1,0 +1,54 @@
+﻿@model ModelEF.Model.UserAccount
+
+@{
+    ViewBag.Title = "Thêm mới Account";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <i class="fa fa-user">&nbsp; Thêm mới</i>
+}
+
+@using (Html.BeginForm("Create", "User", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-6">
+                @Html.ActionLink("Quay lại", "Index", "User", new { @class = "btn btn-secondary" })
+            </div>
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @placeholder = "Nhập UserName" })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @type = "password", @placeholder = "Nhập Mật khẩu" })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IDStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IDStatus", null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IDStatus, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Tạo mới" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+

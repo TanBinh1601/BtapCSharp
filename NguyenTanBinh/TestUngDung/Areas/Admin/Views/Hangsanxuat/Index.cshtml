@@ -1,0 +1,66 @@
+﻿@using PagedList.Mvc
+@using PagedList
+@model IEnumerable<ModelEF.Model.HangSX>
+
+@{
+    ViewBag.Title = "Quản lí hãng sản xuất";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+@section header{
+    <i class="fa fa-cube">&nbsp; Hãng sản xuất</i>
+}
+@using (Html.BeginForm("Index", "Hangsanxuat", FormMethod.Post))
+{
+    <div class="row form-group">
+        <div class="col-md-6">
+            @Html.ActionLink("Thêm mới", "Create", "Hangsanxuat", new { @class = "btn btn-info" })
+        </div>
+        <div class="col-md-4">
+            <input type="text" value="@ViewBag.SearchString" name="searchString" placeholder="Nhập từ khóa tìm kiếm" class="form-control me-2" />
+        </div>
+        <div class="col-md-2">
+            <input type="submit" value="Tìm kiếm" class="btn btn-outline-success" />
+        </div>
+    </div>
+}
+<div class="row form-group">
+    <table class="table">
+        <tr>
+            <th>
+                STT
+            </th>
+            <th>
+                Hãng sản xuất
+            </th>
+            <th>
+                Thao tác
+            </th>
+        </tr>
+
+        @{var i = 1; }
+        @foreach (var item in Model)
+        {
+            <tr id="row_@item.IdHang">
+                <td>
+                    @i
+                </td>
+                <td>
+                    @item.HangSX1
+                </td>
+                <td>
+                    <a href="~/Admin/Hangsanxuat/Edit/@item.IdHang"><i class=" fas fa-edit"></i></a>
+                    &nbsp;
+                    @Ajax.ActionLink(" ", "Delete", new { @id = @item.IdHang}, new AjaxOptions {
+                   Confirm = "Bạn có muốn xóa Nhà SX này không?",
+                   OnComplete = "$('#row_" + @item.IdHang + "').remove()",
+                   HttpMethod = "Delete"
+               }, new { @class = "fas fa-trash" })
+                </td>
+            </tr>
+            i++;
+        }
+    </table>
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page, @seachString = @ViewBag.SearchString }))
+</div>

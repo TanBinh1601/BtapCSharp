@@ -1,0 +1,89 @@
+﻿@model ModelEF.Model.SanPham
+
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <i class="fas fa-th-list">&nbsp; Chi tiết sản phẩm</i>
+}
+@using (Html.BeginForm("Details", "Home", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-6">
+            @Html.ActionLink("Quay lại", "Index", "Home", new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+}
+<div>
+    <dl class="dl-horizontal">
+        <dd>
+            <img src="@Url.Content("~/Image/" + Model.HinhAnh)" height="250" />
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TenSP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenSP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GiaTien)
+        </dt>
+
+        <dd>
+            @(String.Format("{0:0,0 VND}", Model.GiaTien))
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoLuong)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoLuong)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BoNho)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BoNho) GB
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ram)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ram) GB
+        </dd>
+                
+        <dt>
+            @Html.DisplayNameFor(model => model.MoTa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MoTa)
+        </dd>
+
+        <dt>
+            Hãng sản xuất
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HangSX.HangSX1)
+        </dd>
+
+        <dt>
+            Hệ điều hành
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HeDH.HeDieuHanh)
+        </dd>
+
+    </dl>
+</div>

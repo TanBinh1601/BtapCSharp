@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ModelEF.Model.HeDH>
+
+@{
+    ViewBag.Title = "Quản lí HDH";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <i class="fa fa-microchip">&nbsp; Quản lí Hệ điều hành</i>
+}
+
+@using (Html.BeginForm("Index", "Hedieuhanh", FormMethod.Post))
+{
+    <div class="row form-group">
+        <div class="col-md-6">
+            @Html.ActionLink("Thêm mới", "Create", "Hedieuhanh", new { @class = "btn btn-info" })
+        </div>
+        <div class="col-md-4">
+            <input type="text" value="@ViewBag.SearchString" name="searchString" placeholder="Nhập từ khóa tìm kiếm" class="form-control me-2" />
+        </div>
+        <div class="col-md-2">
+            <input type="submit" value="Tìm kiếm" class="btn btn-outline-success" />
+        </div>
+    </div>
+}
+    <div class="row form-group">
+        <table class="table">
+            <tr>
+                <th>
+                    STT
+                </th>
+                <th>
+                    Hệ điều hành
+                </th>
+                <th>Thao tác</th>
+            </tr>
+
+            @{var i = 1; }
+            @foreach (var item in Model)
+            {
+                <tr id="row_@item.IdHdh">
+                    <td>
+                        @i
+                    </td>
+                    <td>
+                        @item.HeDieuHanh
+                    </td>
+                    <td>
+                        <a href="~/Admin/Hedieuhanh/Edit/@item.IdHdh"><i class="fas fa-edit"></i></a>
+                        &nbsp;
+                        @Ajax.ActionLink(" ", "Delete", new { @id = @item.IdHdh}, new AjaxOptions {
+                       Confirm = "Bạn có muốn xóa HDH này không?",
+                       OnComplete = "$('#row_" + @item.IdHdh + "').remove()",
+                       HttpMethod = "Delete"
+                   }, new { @class = "fas fa-trash" })
+                    </td>
+                </tr>
+                i++;
+            }
+
+        </table>
+        </div>

@@ -1,0 +1,96 @@
+﻿@using PagedList.Mvc
+@using PagedList
+@model IEnumerable<ModelEF.Model.SanPham>
+@{
+    ViewBag.Title = "Trang Quản Trị";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <i class="fa fa-home">&nbsp; Trang Quản lí sản phẩm</i>
+}
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    <div class="row form-group">
+        <div class="col-md-6">
+            @Html.ActionLink("Thêm mới", "Create", "Home", new { @class = "btn btn-info" })
+        </div>
+        <div class="col-md-4">
+            <input type="text" value="@ViewBag.SearchString" name="searchString" placeholder="Nhập từ khóa tìm kiếm" class="form-control me-2" />
+        </div>
+        <div class="col-md-2">
+            <input type="submit" value="Tìm kiếm" class="btn btn-outline-success" />
+        </div>
+    </div>
+}
+<div class="row form-group">
+    <table>
+        <tr>
+            <th>
+                STT
+            </th>
+            <th>
+                Tên sản phẩm
+            </th>
+            <th>
+                Số lượng
+            </th>
+            <th>
+                Giá tiền
+            </th>                     
+            <th>
+                Hình ảnh
+            </th>
+            <th>
+                Tên hãng
+            </th>
+            <th>
+                Hệ điều hành
+            </th>
+            <th>
+                Thiết lập
+            </th>
+        </tr>
+        @{var i = 1; }
+        @foreach (var item in Model)
+        {
+            <tr id="row_@item.IdSP">
+                <td>
+                    @i
+                </td>
+                <td>
+                    @item.TenSP
+                </td>
+                <td>
+                    @item.SoLuong 
+                </td>
+                <td>
+                    @String.Format("{0:0,0 VND}", item.GiaTien)
+                </td>                            
+                <td>
+                    <img src="@Url.Content("~/Image/" +item.HinhAnh)" height="50" />
+                </td>
+                <td>
+                    @item.HangSX.HangSX1
+                </td>
+                <td>
+                    @item.HeDH.HeDieuHanh
+                </td>
+                <td>
+                    <a href="~/Admin/Home/Edit/@item.IdSP"><i class="fas fa-edit"></i></a>
+                    &nbsp;
+                    <a href="~/Admin/Home/Details/@item.IdSP"><i class="fas fa-info-circle"></i></a>
+                    &nbsp;
+                    @Ajax.ActionLink(" ", "Delete", new { @id = @item.IdSP}, new AjaxOptions {
+                   Confirm = "Bạn có muốn xóa người dùng này không?",
+                   OnComplete = "$('#row_" + @item.IdSP + "').remove()",
+                   HttpMethod = "Delete"
+               }, new { @class = "fas fa-trash" })
+                </td>
+            </tr>
+            i++;
+        }
+    </table>
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page, @seachString = @ViewBag.SearchString }))
+</div>
